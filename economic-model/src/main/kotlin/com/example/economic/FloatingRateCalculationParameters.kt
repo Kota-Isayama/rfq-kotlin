@@ -21,7 +21,7 @@ data class LookBack(val businessDays: Int): ObservationRule {
 
 enum class CalculationBase {
     STANDARD,
-    SET_IN_ADVANCED,
+    SET_IN_ADVANCE,
     FIXING_DATE;
 }
 
@@ -50,8 +50,4 @@ data class Lockout(val businessDays: Int): ObservationRule {
 data class FloatingRateCalculationParameters(
     val method: CalculationMethod,
     val observationRule: ObservationRule
-) {
-    init {
-        // If needed, validate the combination of method and observation rule
-    }
-}
+)
