@@ -11,5 +11,5 @@ data class FixedRateSpecification(val rate: BigDecimal): RateSpecification
 data class  FloatingRateSpecification(
     val index: RateIndex,
     val spread: BigDecimal,
-    val calculationMethod: CalculationMethod
+    val calculationParameters: FloatingRateCalculationParameters
 ): RateSpecification
