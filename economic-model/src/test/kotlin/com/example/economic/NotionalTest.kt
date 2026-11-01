@@ -13,14 +13,14 @@ class NotionalTest {
 
     // Abnormal system
     @Test
-    fun `Zero can not be notional amount`() {
+    fun `Zero cannot be notional amount`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             Notional(BigDecimal.ZERO)
         }
     }
 
     @Test
-    fun `Negative number can be notional amount`() {
+    fun `Negative number cannot be notional amount`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             Notional(BigDecimal.valueOf(-100000))
         }
