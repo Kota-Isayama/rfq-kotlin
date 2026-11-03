@@ -3,19 +3,19 @@ package com.example.economic
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class BusinessDayAdjustmentTest {
+class BusinessDayAdjustmentsTest {
     @Test
-    fun `BusinessDayAdjustment with specific business day convention accepts business centers`() {
-        BusinessDayAdjustment(
+    fun `BusinessDayAdjustments with specific business day convention accepts business centers`() {
+        BusinessDayAdjustments(
             BusinessDayConvention.MODFOLLOWING,
             setOf(BusinessCenter("JPTO"))
         )
     }
 
     @Test
-    fun `BusinessDayAdjustment with specific convention rejects business centers`() {
+    fun `BusinessDayAdjustments with specific convention rejects business centers`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            BusinessDayAdjustment(
+            BusinessDayAdjustments(
                 BusinessDayConvention.FOLLOWING,
                 setOf()
             )
@@ -23,17 +23,17 @@ class BusinessDayAdjustmentTest {
     }
 
     @Test
-    fun `BusinessDayAdjustment with none convention accepts empty business centers`() {
-        BusinessDayAdjustment(
+    fun `BusinessDayAdjustments with none convention accepts empty business centers`() {
+        BusinessDayAdjustments(
             BusinessDayConvention.NONE,
             emptySet()
         )
     }
 
     @Test
-    fun `BusinessDayAdjustment with none convention rejects business centers`() {
+    fun `BusinessDayAdjustments with none convention rejects business centers`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            BusinessDayAdjustment(
+            BusinessDayAdjustments(
                 BusinessDayConvention.NONE,
                 setOf(BusinessCenter("JPTO"))
             )
