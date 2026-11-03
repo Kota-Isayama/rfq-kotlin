@@ -9,8 +9,12 @@ data class CalculationPeriodFrequency(
             PeriodUnit.TERM -> require(rollConvention == NoRoll) {
                 "When frequency is 1TERM, Roll does not exist."
             }
-            else -> require(rollConvention != NoRoll) {
-                "When frequency is other than TERM, Roll must exist."
+            PeriodUnit.MONTH -> require(rollConvention != NoRoll) {
+                "When frequency is MONTH, Roll must exist."
+            }
+
+            PeriodUnit.YEAR -> require(rollConvention != NoRoll) {
+                "When frequency is YEAR, Roll must exist."
             }
         }
     }
