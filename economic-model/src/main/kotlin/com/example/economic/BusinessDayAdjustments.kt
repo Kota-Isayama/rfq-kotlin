@@ -1,5 +1,7 @@
 package com.example.economic
 
+import java.util.Collections
+
 @ConsistentCopyVisibility
 data class BusinessDayAdjustments private constructor (
     val convention: BusinessDayConvention,
@@ -28,7 +30,7 @@ data class BusinessDayAdjustments private constructor (
         fun create(convention: BusinessDayConvention, centers: Set<BusinessCenter>): BusinessDayAdjustments {
             return BusinessDayAdjustments(
                 convention,
-                centers.toSet()
+                Collections.unmodifiableSet(centers.toMutableSet())
             )
         }
     }

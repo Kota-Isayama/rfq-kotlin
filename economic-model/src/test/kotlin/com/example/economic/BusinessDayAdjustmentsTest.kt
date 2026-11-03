@@ -2,6 +2,8 @@ package com.example.economic
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import kotlin.test.assertEquals
 
 class BusinessDayAdjustmentsTest {
     @Test
@@ -38,5 +40,18 @@ class BusinessDayAdjustmentsTest {
                 setOf(BusinessCenter("JPTO"))
             )
         }
+    }
+
+    @Test
+    fun `BusinessCenters cannot be modified after creation`() {
+        val adjustments = BusinessDayAdjustments.create(
+            BusinessDayConvention.MODFOLLOWING,
+            setOf(BusinessCenter("JPTO"), BusinessCenter("US"))
+        )
+
+        val centers = adjustments.businessCenters
+        centers.plus(BusinessCenter("JPTO2"))
+
+        assertEquals(setOf(BusinessCenter("JPTO"), BusinessCenter("US")), adjustments.businessCenters)
     }
 }
