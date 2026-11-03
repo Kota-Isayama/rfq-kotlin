@@ -44,14 +44,17 @@ class BusinessDayAdjustmentsTest {
 
     @Test
     fun `BusinessCenters cannot be modified after creation`() {
+        val source = mutableSetOf(
+            BusinessCenter("JPTO"),
+            BusinessCenter("USNY")
+        )
         val adjustments = BusinessDayAdjustments.create(
             BusinessDayConvention.MODFOLLOWING,
-            setOf(BusinessCenter("JPTO"), BusinessCenter("US"))
+            source
         )
 
-        val centers = adjustments.businessCenters
-        centers.plus(BusinessCenter("JPTO2"))
+        source.clear()
 
-        assertEquals(setOf(BusinessCenter("JPTO"), BusinessCenter("US")), adjustments.businessCenters)
+        assertEquals(setOf(BusinessCenter("JPTO"), BusinessCenter("USNY")), adjustments.businessCenters)
     }
 }
