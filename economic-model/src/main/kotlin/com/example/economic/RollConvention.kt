@@ -13,3 +13,5 @@ data class DayOfMonth(val day: Int): RollConvention {
 
 
 data object EndOfMonth: RollConvention
+
+data object NoRoll: RollConvention
