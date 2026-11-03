@@ -1,7 +1,5 @@
 package com.example.economic
 
-import Frequency
-import PeriodUnit
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -9,6 +7,11 @@ import org.junit.jupiter.params.provider.EnumSource
 import org.junit.jupiter.params.provider.ValueSource
 
 class FrequencyTest {
+    @Test
+    fun `Normal frequency test`() {
+        Frequency(periodMultiplier = 3, periodUnit = PeriodUnit.MONTH)
+    }
+
     @ParameterizedTest
     @EnumSource(PeriodUnit::class)
     fun `Zero is invalid multiplier`(unit: PeriodUnit) {
