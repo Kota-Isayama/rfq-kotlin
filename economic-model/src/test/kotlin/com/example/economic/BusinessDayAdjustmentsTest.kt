@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 class BusinessDayAdjustmentsTest {
     @Test
     fun `BusinessDayAdjustments with specific business day convention accepts business centers`() {
-        BusinessDayAdjustments(
+        BusinessDayAdjustments.create(
             BusinessDayConvention.MODFOLLOWING,
             setOf(BusinessCenter("JPTO"))
         )
@@ -15,7 +15,7 @@ class BusinessDayAdjustmentsTest {
     @Test
     fun `BusinessDayAdjustments with specific convention rejects business centers`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            BusinessDayAdjustments(
+            BusinessDayAdjustments.create(
                 BusinessDayConvention.FOLLOWING,
                 setOf()
             )
@@ -24,7 +24,7 @@ class BusinessDayAdjustmentsTest {
 
     @Test
     fun `BusinessDayAdjustments with none convention accepts empty business centers`() {
-        BusinessDayAdjustments(
+        BusinessDayAdjustments.create(
             BusinessDayConvention.NONE,
             emptySet()
         )
@@ -33,7 +33,7 @@ class BusinessDayAdjustmentsTest {
     @Test
     fun `BusinessDayAdjustments with none convention rejects business centers`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            BusinessDayAdjustments(
+            BusinessDayAdjustments.create(
                 BusinessDayConvention.NONE,
                 setOf(BusinessCenter("JPTO"))
             )

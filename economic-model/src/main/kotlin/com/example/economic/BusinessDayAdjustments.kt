@@ -1,12 +1,10 @@
 package com.example.economic
 
-data class BusinessDayAdjustments(
+@ConsistentCopyVisibility
+data class BusinessDayAdjustments private constructor (
     val convention: BusinessDayConvention,
-    val centers: Set<BusinessCenter>
+    val businessCenters: Set<BusinessCenter>
 ) {
-    val businessCenters = centers.toSet()
-        get() = field.toSet()
-
     init {
         when (convention) {
             BusinessDayConvention.MODFOLLOWING,
@@ -23,6 +21,15 @@ data class BusinessDayAdjustments(
                     "When business day convention is not specified, business center must not be specified."
                 }
             }
+        }
+    }
+
+    companion object {
+        fun create(convention: BusinessDayConvention, centers: Set<BusinessCenter>): BusinessDayAdjustments {
+            return BusinessDayAdjustments(
+                convention,
+                centers.toSet()
+            )
         }
     }
 }
