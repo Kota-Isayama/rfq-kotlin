@@ -49,6 +49,14 @@ class CalculationPeriodFrequencyTest {
     }
 
     @Test
+    fun `accepts yearly frequency with end of month roll`() {
+        CalculationPeriodFrequency(
+            Frequency(1, PeriodUnit.YEAR),
+            EndOfMonth,
+        )
+    }
+
+    @Test
     fun `Normal Frequency must have roll convention`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             CalculationPeriodFrequency(
