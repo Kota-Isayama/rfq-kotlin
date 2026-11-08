@@ -8,7 +8,7 @@ enum class StubLength {
 }
 
 
-interface StubSpecification
+sealed interface StubSpecification
 
 
 object NoneStub : StubSpecification
@@ -21,7 +21,7 @@ data class FinalStub(val length: StubLength) : StubSpecification
 data class BothStub(
     val unadjustedFirstRegularPeriodStartDate: LocalDate,
     val unadjustedLastRegularPeriodEndDate: LocalDate,
-) {
+): StubSpecification {
     init {
         require(
             unadjustedFirstRegularPeriodStartDate.isBefore(unadjustedLastRegularPeriodEndDate)
