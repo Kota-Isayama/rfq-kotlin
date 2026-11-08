@@ -28,7 +28,7 @@ class PaymentDatesTest {
                 payRelativeTo = PayRelativeTo.CALCULATION_PERIOD_END_DATE,
                 paymentDatesAdjustments = BusinessDayAdjustments.create(
                     convention = BusinessDayConvention.NONE,
-                    centers = setOf(BusinessCenter("JPTO")),
+                    centers = emptySet(),
                 ),
                 paymentDateOffset = PaymentDaysOffset(
                     days = 2,
