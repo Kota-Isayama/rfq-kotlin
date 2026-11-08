@@ -27,12 +27,12 @@ class PaymentDatesTest {
                 paymentFrequency = Frequency(periodMultiplier = 6, periodUnit = PeriodUnit.MONTH),
                 payRelativeTo = PayRelativeTo.CALCULATION_PERIOD_END_DATE,
                 paymentDatesAdjustments = BusinessDayAdjustments.create(
-                    convention = BusinessDayConvention.MODFOLLOWING,
+                    convention = BusinessDayConvention.NONE,
                     centers = setOf(BusinessCenter("JPTO")),
                 ),
                 paymentDateOffset = PaymentDaysOffset(
                     days = 2,
-                    dayType = DayType.CALENDAR
+                    dayType = DayType.BUSINESS
                 ),
             )
         }

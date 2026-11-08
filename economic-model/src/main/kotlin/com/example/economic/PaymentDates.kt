@@ -12,8 +12,8 @@ data class PaymentDates(
     val paymentDatesAdjustments: BusinessDayAdjustments
 ) {
     init {
-        if (paymentDateOffset?.dayType == DayType.CALENDAR) {
-            require(paymentDatesAdjustments.convention == BusinessDayConvention.NONE) {
+        if (paymentDatesAdjustments.convention == BusinessDayConvention.NONE) {
+            require(paymentDateOffset?.dayType == DayType.CALENDAR) {
                 "Payment dates convention must be specified, when the payment date offset day type is BUSINESS"
             }
         }
