@@ -26,7 +26,7 @@ data class BothStub(
         require(
             unadjustedFirstRegularPeriodStartDate.isBefore(unadjustedLastRegularPeriodEndDate)
         ) {
-            "Fist Regular Period Start Date must be before Last Regular Period End Date."
+            "First Regular Period Start Date must be before Last Regular Period End Date."
         }
     }
 }
