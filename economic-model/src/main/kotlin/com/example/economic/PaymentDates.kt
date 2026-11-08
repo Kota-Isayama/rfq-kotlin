@@ -8,11 +8,11 @@ enum class PayRelativeTo {
 data class PaymentDates(
     val paymentFrequency: Frequency,
     val payRelativeTo: PayRelativeTo,
-    val paymentDateOffset: PaymentDaysOffset,
+    val paymentDateOffset: PaymentDaysOffset?,
     val paymentDatesAdjustments: BusinessDayAdjustments
 ) {
     init {
-        if (paymentDateOffset.dayType == DayType.BUSINESS) {
+        if (paymentDateOffset?.dayType == DayType.CALENDAR) {
             require(paymentDatesAdjustments.convention == BusinessDayConvention.NONE) {
                 "Payment dates convention must be specified, when the payment date offset day type is BUSINESS"
             }
