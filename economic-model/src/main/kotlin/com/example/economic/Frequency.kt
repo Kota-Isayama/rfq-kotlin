@@ -1,7 +1,7 @@
 package com.example.economic
 
 enum class PeriodUnit {
-    MONTH, YEAR, TERM;
+    WEEK, MONTH, YEAR, TERM;
 }
 
 

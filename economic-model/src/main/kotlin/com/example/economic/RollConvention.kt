@@ -14,4 +14,16 @@ data class DayOfMonth(val day: Int): RollConvention {
 
 data object EndOfMonth: RollConvention
 
+enum class DayOfWeek {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY;
+}
+
+data class DayOfWeekRoll(val dayOfWeek: DayOfWeek): RollConvention
+
 data object NoRoll: RollConvention

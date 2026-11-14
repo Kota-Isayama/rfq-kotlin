@@ -5,7 +5,7 @@ import java.time.LocalDate
 data class CalculationPeriodDates(
     val unadjustedEffectiveDate: LocalDate,
     val unadjustedTerminationDate: LocalDate,
-    val calculationPeriodFrequency: CalculationPeriodFrequency,
+    val scheduleFrequency: ScheduleFrequency,
     val calculationPeriodDatesAdjustments: BusinessDayAdjustments,
     val stub: StubSpecification
 ) {

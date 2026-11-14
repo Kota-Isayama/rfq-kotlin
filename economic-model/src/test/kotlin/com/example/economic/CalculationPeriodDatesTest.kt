@@ -11,7 +11,7 @@ class CalculationPeriodDatesTest {
             CalculationPeriodDates(
                 unadjustedEffectiveDate = LocalDate.parse("2020-01-02"),
                 unadjustedTerminationDate = LocalDate.parse("2020-01-01"),
-                calculationPeriodFrequency = CalculationPeriodFrequency(
+                scheduleFrequency = ScheduleFrequency(
                     frequency = Frequency(1, PeriodUnit.MONTH),
                     rollConvention = DayOfMonth(day=1)
                 ),
@@ -30,7 +30,7 @@ class CalculationPeriodDatesTest {
             CalculationPeriodDates(
                 unadjustedEffectiveDate = LocalDate.parse("2020-01-01"),
                 unadjustedTerminationDate = LocalDate.parse("2021-02-01"),
-                calculationPeriodFrequency = CalculationPeriodFrequency(
+                scheduleFrequency = ScheduleFrequency(
                     frequency = Frequency(1, PeriodUnit.MONTH),
                     rollConvention = DayOfMonth(day=1)
                 ),
@@ -52,7 +52,7 @@ class CalculationPeriodDatesTest {
             CalculationPeriodDates(
                 unadjustedEffectiveDate = LocalDate.parse("2020-01-01"),
                 unadjustedTerminationDate = LocalDate.parse("2021-02-01"),
-                calculationPeriodFrequency = CalculationPeriodFrequency(
+                scheduleFrequency = ScheduleFrequency(
                     frequency = Frequency(1, PeriodUnit.MONTH),
                     rollConvention = DayOfMonth(day=1)
                 ),
