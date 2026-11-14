@@ -13,7 +13,7 @@ enum class PeriodBoundary {
 
 data class SingleFixing(
     val reference: PeriodBoundary,
-    val fixingDate: LocalDate,
+    val fixingDateRule: FixingDateRule,
 ): FloatingRateDetermination
 
 
