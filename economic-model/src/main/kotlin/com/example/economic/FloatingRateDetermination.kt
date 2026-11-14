@@ -1,5 +1,7 @@
 package com.example.economic
 
+import java.time.LocalDate
+
 sealed interface FloatingRateDetermination
 
 
@@ -11,8 +13,7 @@ enum class PeriodBoundary {
 
 data class SingleFixing(
     val reference: PeriodBoundary,
-    val fixingOffset: Int,
-    val businessCenters: Set<BusinessCenter>
+    val fixingDate: LocalDate,
 ): FloatingRateDetermination
 
 
