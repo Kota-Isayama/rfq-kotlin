@@ -1,5 +1,9 @@
 package com.example.economic
 
+
+sealed interface Payout
+
+
 data class InterestRatePayout(
     val payerReceiver: PayerReceiver,
     val currency: Currency,
@@ -8,4 +12,4 @@ data class InterestRatePayout(
     val paymentDates: PaymentDates,
     val dayCountFraction: DayCountFraction,
     val rateSpecification: RateSpecification,
-)
+): Payout
