@@ -46,8 +46,3 @@ data class Lockout(val businessDays: Int): ObservationRule {
         }
     }
 }
-
-data class FloatingRateCalculationParameters(
-    val method: CalculationMethod,
-    val observationRule: ObservationRule
-)
