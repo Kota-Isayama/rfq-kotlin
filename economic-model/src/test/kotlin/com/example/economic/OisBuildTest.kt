@@ -11,8 +11,8 @@ class OisBuildTest {
         val receiver = CounterpartyRole.PARTY2
         val notional = Notional(amount = BigDecimal("1000000000"))
         val calculationPeriodDates = CalculationPeriodDates(
-            unadjustedEffectiveDate = LocalDate.parse("2020-01-01"),
-            unadjustedTerminationDate = LocalDate.parse("2025-01-01"),
+            unadjustedEffectiveDate = LocalDate.parse("2020-04-01"),
+            unadjustedTerminationDate = LocalDate.parse("2025-04-01"),
             scheduleFrequency = ScheduleFrequency(
                 frequency = Frequency(periodMultiplier = 1, periodUnit = PeriodUnit.YEAR),
                 rollConvention = DayOfMonth(day = 1),
