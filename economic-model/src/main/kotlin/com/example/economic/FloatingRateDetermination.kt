@@ -12,7 +12,8 @@ enum class PeriodBoundary {
 data class SingleFixing(
     val reference: PeriodBoundary,
     val fixingOffset: Int,
-)
+    val businessCenters: Set<BusinessCenter>
+): FloatingRateDetermination
 
 
 data class Compounding(
