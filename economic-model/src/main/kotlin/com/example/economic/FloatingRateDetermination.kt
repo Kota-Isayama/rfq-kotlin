@@ -1,6 +1,6 @@
 package com.example.economic
 
-interface FloatingRateDetermination
+sealed interface FloatingRateDetermination
 
 
 data class Compounding(
