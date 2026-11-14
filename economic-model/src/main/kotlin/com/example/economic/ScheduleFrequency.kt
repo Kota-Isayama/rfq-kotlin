@@ -14,10 +14,6 @@ data class ScheduleFrequency(
                 require(rollConvention is DayOfWeekRoll) {
                     "When frequency is WEEK, DayOfWeekRoll must be specified."
                 }
-
-                require(rollConvention != NoRoll) {
-                    "When frequency is WEEK, Roll must exist."
-                }
             }
 
             PeriodUnit.MONTH -> {

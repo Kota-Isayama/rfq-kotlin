@@ -1,5 +1,7 @@
 package com.example.economic
 
+import java.time.DayOfWeek
+
 sealed interface RollConvention
 
 
@@ -13,16 +15,6 @@ data class DayOfMonth(val day: Int): RollConvention {
 
 
 data object EndOfMonth: RollConvention
-
-enum class DayOfWeek {
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY,
-    SUNDAY;
-}
 
 data class DayOfWeekRoll(val dayOfWeek: DayOfWeek): RollConvention
 
