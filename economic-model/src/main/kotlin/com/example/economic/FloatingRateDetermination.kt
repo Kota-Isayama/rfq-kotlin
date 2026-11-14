@@ -25,7 +25,7 @@ data class Averaging(
     val rateChangeSchedule: RateChangeSchedule,
     val fixingDateRule: FixingDateRule,
     val weighting: AveragingWeighting
-) {
+): FloatingRateDetermination {
     enum class AveragingWeighting {
         EQUAL,           // 各Fixing値を等しい重みで平均
         DAYS_IN_EFFECT;  // 各Fixing値が適用される日数で加重平均
