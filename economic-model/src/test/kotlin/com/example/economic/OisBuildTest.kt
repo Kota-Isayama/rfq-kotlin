@@ -42,7 +42,30 @@ class OisBuildTest {
             dayCountFraction = DayCountFraction.ACT_365_FIXED,
             rateSpecification = FloatingRateSpecification(
                 index = RateIndex.JPY_TONA,
-                spread = BigDecimal("0"),
+                spread = Constant(value = BigDecimal("0")),
+                multiplier = PeriodBasedSchedule(
+                    initialValue = BigDecimal("1.0"),
+                    steps = listOf(
+                        PeriodBasedSchedule.PeriodStep(
+                            fromCalculationPeriodNumber = 2,
+                            value = BigDecimal("2.0"),
+                        )
+                    )
+                ),
+                floor = Constant(value = BigDecimal("0.0")),
+                cap = DateBasedSchedule(
+                    initialValue = BigDecimal("4.0"),
+                    steps = listOf(
+                        DateBasedSchedule.DatedStep(
+                            date = LocalDate.parse("2021-04-01"),
+                            value = BigDecimal("8.0"),
+                        )
+                    ),
+                    stepDateAdjustments = BusinessDayAdjustments.create(
+                        convention = BusinessDayConvention.MODFOLLOWING,
+                        centers = setOf(BusinessCenter("JPTO")),
+                    )
+                ),
                 floatingRateDetermination = Compounding(
                     observationRule = NoShift,
                     businessCenters = setOf(BusinessCenter("JPTO")),

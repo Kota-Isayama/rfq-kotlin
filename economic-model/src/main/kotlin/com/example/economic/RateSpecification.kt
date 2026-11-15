@@ -10,6 +10,10 @@ data class FixedRateSpecification(val rate: BigDecimal): RateSpecification
 
 data class  FloatingRateSpecification(
     val index: RateIndex,
-    val spread: BigDecimal,
+
+    val spread: ValueSchedule<BigDecimal>,
+    val multiplier: ValueSchedule<BigDecimal>,
+    val cap: ValueSchedule<BigDecimal>,
+    val floor: ValueSchedule<BigDecimal>,
     val floatingRateDetermination: FloatingRateDetermination
 ): RateSpecification
