@@ -9,7 +9,7 @@ class OisBuildTest {
     fun `JPY OIS can be represented`() {
         val payer = CounterpartyRole.PARTY1
         val receiver = CounterpartyRole.PARTY2
-        val notional = Notional(amount = BigDecimal("1000000000"))
+        val notional = Constant(Notional(amount = BigDecimal("1000000000")))
         val calculationPeriodDates = CalculationPeriodDates(
             unadjustedEffectiveDate = LocalDate.parse("2020-04-01"),
             unadjustedTerminationDate = LocalDate.parse("2025-04-01"),
