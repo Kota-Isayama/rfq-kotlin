@@ -52,7 +52,7 @@ class OisBuildTest {
                         )
                     )
                 ),
-                floor = Constant(value = BigDecimal("0.0")),
+                floor = null,
                 cap = DateBasedSchedule(
                     initialValue = BigDecimal("4.0"),
                     steps = listOf(
@@ -81,7 +81,15 @@ class OisBuildTest {
             paymentDates = paymentDates,
             dayCountFraction = DayCountFraction.ACT_365_FIXED,
             rateSpecification = FixedRateSpecification(
-                rate= BigDecimal("0.01"),
+                rate= PeriodBasedSchedule(
+                    initialValue = BigDecimal("0.01"),
+                    steps = listOf(
+                        PeriodBasedSchedule.PeriodStep(
+                            fromCalculationPeriodNumber = 2,
+                            value = BigDecimal("0.02"),
+                        )
+                    )
+                ),
             )
         )
 
