@@ -32,6 +32,6 @@ data class Measure<out U: UnitType>(
 
 
 data class MeasureSchedule<out U: UnitType>(
-    val valueSchedule: ValueSchedule<U>,
+    val valueSchedule: ValueSchedule<BigDecimal>,
     val unit: U
 )
