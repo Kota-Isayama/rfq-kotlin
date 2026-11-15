@@ -2,7 +2,7 @@ package com.example.economic
 
 import java.time.LocalDate
 
-sealed interface ValueSchedule<out T>
+sealed interface ValueSchedule<out T: Any>
 
 
 data class Constant<out T: Any>(val value: T) : ValueSchedule<T>
