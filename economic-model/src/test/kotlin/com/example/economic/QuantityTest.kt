@@ -71,7 +71,7 @@ class QuantityTest {
                     ),
                     unit = Currency.EUR,
                 ),
-                multiplier = Measure(BigDecimal.ZERO, Currency.EUR),
+                multiplier = Measure(BigDecimal(-1), Currency.EUR),
             )
         }
     }
