@@ -2,9 +2,9 @@ package com.example.economic
 
 import java.math.BigDecimal
 
-data class Quantity<out U: UnitType>(
+data class Quantity<out U: UnitType, out V: UnitType>(
     val measure: Measure<U>,
-    val multiplier: Measure<UnitType>
+    val multiplier: Measure<V>
 ) {
     init {
         require(multiplier.value > BigDecimal.ZERO) {
@@ -14,9 +14,9 @@ data class Quantity<out U: UnitType>(
 }
 
 
-data class QuantitySchedule<out U: UnitType>(
+data class QuantitySchedule<out U: UnitType, out V: UnitType>(
     val measure: MeasureSchedule<U>,
-    val multiplier: Measure<UnitType>
+    val multiplier: Measure<V>
 ) {
     init {
         require(multiplier.value > BigDecimal.ZERO) {

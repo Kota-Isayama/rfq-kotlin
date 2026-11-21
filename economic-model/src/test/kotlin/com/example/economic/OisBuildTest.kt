@@ -9,7 +9,24 @@ class OisBuildTest {
     fun `JPY OIS can be represented`() {
         val payer = CounterpartyRole.PARTY1
         val receiver = CounterpartyRole.PARTY2
-        val notional = Constant(Notional(amount = BigDecimal("1000000000")))
+        val notional = QuantitySchedule(
+            measure = MeasureSchedule(
+                valueSchedule = PeriodBasedSchedule(
+                    initialValue = BigDecimal("1000000"),
+                    steps = listOf(
+                        PeriodBasedSchedule.PeriodStep(
+                            fromCalculationPeriodNumber = 2,
+                            value = BigDecimal("2000000"),
+                        )
+                    ),
+                ),
+                unit = Currency.JPY,
+            ),
+            multiplier = Measure(
+                value = BigDecimal.ONE,
+                unit = Dimensionless,
+            ),
+        )
         val calculationPeriodDates = CalculationPeriodDates(
             unadjustedEffectiveDate = LocalDate.parse("2020-04-01"),
             unadjustedTerminationDate = LocalDate.parse("2025-04-01"),
@@ -35,7 +52,6 @@ class OisBuildTest {
 
         val floatingRatePayout = InterestRatePayout(
             payerReceiver = PayerReceiver(payer=receiver, receiver = payer),
-            currency = Currency.JPY,
             notional = notional,
             calculationPeriodDates = calculationPeriodDates,
             paymentDates = paymentDates,
@@ -75,7 +91,6 @@ class OisBuildTest {
 
         val fixedRatePayout = InterestRatePayout(
             payerReceiver = PayerReceiver(payer=payer, receiver = receiver),
-            currency = Currency.JPY,
             notional = notional,
             calculationPeriodDates = calculationPeriodDates,
             paymentDates = paymentDates,

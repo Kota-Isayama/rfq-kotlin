@@ -7,7 +7,7 @@ sealed interface Payout
 
 data class InterestRatePayout(
     val payerReceiver: PayerReceiver,
-    val notional: QuantitySchedule<Currency>,
+    val notional: QuantitySchedule<Currency, Dimensionless>,
     val calculationPeriodDates: CalculationPeriodDates,
     val paymentDates: PaymentDates,
     val dayCountFraction: DayCountFraction,
@@ -20,39 +20,17 @@ data class InterestRatePayout(
     }
 
     private fun is_notional_always_positive(): Boolean {
-        when (notional.measure.valueSchedule) {
+        return when (notional.measure.valueSchedule) {
             is Constant<BigDecimal> -> {
-                return notional.measure.valueSchedule.value > BigDecimal.ZERO
+                notional.measure.valueSchedule.value > BigDecimal.ZERO
             }
             is DateBasedSchedule<BigDecimal> -> {
-                var value = notional.measure.valueSchedule.initialValue
-                if (value <= BigDecimal.ZERO) {
-                    return false
-                }
-
-                for (step in notional.measure.valueSchedule.steps) {
-                    value += step.value
-                    if (value <= BigDecimal.ZERO) {
-                        return false
-                    }
-                }
-
-                return true
+                notional.measure.valueSchedule.initialValue > BigDecimal.ZERO
+                        && notional.measure.valueSchedule.steps.all { it.value > BigDecimal.ZERO }
             }
             is PeriodBasedSchedule<BigDecimal> -> {
-                var value = notional.measure.valueSchedule.initialValue
-                if (value <= BigDecimal.ZERO) {
-                    return false
-                }
-
-                for (step in notional.measure.valueSchedule.steps) {
-                    value += step.value
-                    if (value <= BigDecimal.ZERO) {
-                        return false
-                    }
-                }
-
-                return true
+                notional.measure.valueSchedule.initialValue > BigDecimal.ZERO
+                        && notional.measure.valueSchedule.steps.all { it.value > BigDecimal.ZERO }
             }
         }
     }
