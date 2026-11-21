@@ -1,0 +1,59 @@
+package com.example.economic.base.datetime
+
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+
+class BusinessDayAdjustmentsTest {
+    @Test
+    fun `BusinessDayAdjustments with specific business day convention accepts business centers`() {
+        BusinessDayAdjustments.create(
+            BusinessDayConvention.MODFOLLOWING,
+            setOf(BusinessCenter("JPTO"))
+        )
+    }
+
+    @Test
+    fun `BusinessDayAdjustments with specific convention rejects business centers`() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            BusinessDayAdjustments.create(
+                BusinessDayConvention.FOLLOWING,
+                setOf()
+            )
+        }
+    }
+
+    @Test
+    fun `BusinessDayAdjustments with none convention accepts empty business centers`() {
+        BusinessDayAdjustments.create(
+            BusinessDayConvention.NONE,
+            emptySet()
+        )
+    }
+
+    @Test
+    fun `BusinessDayAdjustments with none convention rejects business centers`() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            BusinessDayAdjustments.create(
+                BusinessDayConvention.NONE,
+                setOf(BusinessCenter("JPTO"))
+            )
+        }
+    }
+
+    @Test
+    fun `BusinessCenters cannot be modified after creation`() {
+        val source = mutableSetOf(
+            BusinessCenter("JPTO"),
+            BusinessCenter("USNY")
+        )
+        val adjustments = BusinessDayAdjustments.create(
+            BusinessDayConvention.MODFOLLOWING,
+            source
+        )
+
+        source.clear()
+
+        assertEquals(setOf(BusinessCenter("JPTO"), BusinessCenter("USNY")), adjustments.businessCenters)
+    }
+}
