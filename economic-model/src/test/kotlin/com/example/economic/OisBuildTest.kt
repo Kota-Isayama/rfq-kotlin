@@ -18,7 +18,7 @@ import com.example.economic.base.math.PeriodBasedSchedule
 import com.example.economic.base.math.QuantitySchedule
 import com.example.economic.base.party.CounterpartyRole
 import com.example.economic.base.party.PayerReceiver
-import com.example.economic.observable.index.RateIndex
+import com.example.economic.observable.RateIndex
 import com.example.economic.product.EconomicTerms
 import com.example.economic.product.payout.InterestRatePayout
 import com.example.economic.product.rate.Compounding
