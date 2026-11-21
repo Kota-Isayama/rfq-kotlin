@@ -1,7 +1,7 @@
 package com.example.economic.product.rate
 
 import com.example.economic.base.math.ValueSchedule
-import com.example.economic.observable.index.RateIndex
+import com.example.economic.observable.RateIndex
 import java.math.BigDecimal
 
 sealed interface RateSpecification
