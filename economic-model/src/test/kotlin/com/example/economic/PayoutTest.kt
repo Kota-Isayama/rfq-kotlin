@@ -104,7 +104,7 @@ class PayoutTest {
                     steps = listOf(
                         DateBasedSchedule.DatedStep(
                             date = LocalDate.parse("2021-04-01"),
-                            value = BigDecimal("-1000000"),
+                            value = BigDecimal("-500000"),
                         )
                     ),
                     stepDateAdjustments = BusinessDayAdjustments.create(
@@ -195,7 +195,7 @@ class PayoutTest {
                     steps = listOf(
                         PeriodBasedSchedule.PeriodStep(
                             fromCalculationPeriodNumber = 2,
-                            value = BigDecimal("-2000000"),
+                            value = BigDecimal("-500000"),
                         )
                     ),
                 ),
