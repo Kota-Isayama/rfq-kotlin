@@ -1,0 +1,63 @@
+package com.example.economic.product.termination
+
+import com.example.economic.base.datetime.BusinessDayAdjustments
+import com.example.economic.product.payout.PayoutId
+import com.example.economic.product.schedule.DayType
+import com.example.economic.product.schedule.PaymentDaysOffset
+
+
+sealed interface TerminationEffect
+
+
+sealed interface AccruedInterrestTreatment: TerminationEffect {
+    val payoutIds: Set<PayoutId>
+}
+
+
+data class WaiveAccruedInterest(
+    override val payoutIds: Set<PayoutId>
+) : AccruedInterrestTreatment {
+    init {
+        require(payoutIds.isNotEmpty()) { "PayoutId must not be empty" }
+    }
+}
+
+
+data class PayAccruedInterest(
+    override val payoutIds: Set<PayoutId>,
+    val paymentDateRule: AccruedInterestPaymentDateRule
+): AccruedInterrestTreatment {
+    init {
+        require(payoutIds.isNotEmpty()) {
+            "PayoutId must not be empty"
+        }
+    }
+}
+
+
+sealed interface AccruedInterestPaymentDateRule
+
+// 元々の契約内容の利払い日と同一
+data object OriginalPaymentDate: AccruedInterestPaymentDateRule
+
+// 短縮された計算期間に既存の支払規約を適用
+data object RecalculatePaymentDate: AccruedInterestPaymentDateRule
+
+// KO固有の設定
+data class RelativePaymentDate(
+    val relativeTo: AccruedInterestPaymentDateRelativeTo,
+    val paymentDateOffset: PaymentDaysOffset,
+    val paymentDateAdjustments: BusinessDayAdjustments
+): AccruedInterestPaymentDateRule {
+    enum class AccruedInterestPaymentDateRelativeTo {
+        TRIGGER_DATE,
+        TERMINATION_DATE;
+    }
+
+    init {
+        if (paymentDateOffset.dayType == DayType.BUSINESS) {
+            require(paymentDateAdjustments.businessCenters.isNotEmpty()) { "Business Centers must not be empty when the offset is business days." }
+        }
+    }
+}
+
