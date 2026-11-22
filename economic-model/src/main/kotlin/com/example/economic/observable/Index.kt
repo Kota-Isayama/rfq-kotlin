@@ -24,7 +24,7 @@ data class CurrencyPair(
 
 enum class InformationProvider{
     REFINITIV,
-    BFIX;
+    BLOOMBERG;
 }
 
 
@@ -35,4 +35,4 @@ data class FxSpotRateSource(
 data class ForeignExchangeRateIndex(
     val currencyPair: CurrencyPair,
     val fixingSource: FxSpotRateSource,
-)
+): Index
