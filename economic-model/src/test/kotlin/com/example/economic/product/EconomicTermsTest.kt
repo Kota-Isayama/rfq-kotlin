@@ -105,9 +105,13 @@ class EconomicTermsTest {
             )
         )
 
+        val anotherPayout = fixedRatePayout.copy(
+            dayCountFraction = DayCountFraction.ACT_360,
+        )
+
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             EconomicTerms(
-                payouts = listOf(fixedRatePayout, fixedRatePayout),
+                payouts = listOf(fixedRatePayout, anotherPayout),
             )
         }
     }
