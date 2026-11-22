@@ -1,4 +1,4 @@
-import com.example.economic.observable.Observable
+package com.example.economic.observable
 
 sealed interface ValueExpression
 
