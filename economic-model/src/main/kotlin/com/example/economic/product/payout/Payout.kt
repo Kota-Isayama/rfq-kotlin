@@ -13,10 +13,18 @@ import com.example.economic.product.schedule.CalculationPeriodDates
 import com.example.economic.product.schedule.PaymentDates
 import java.math.BigDecimal
 
-sealed interface Payout
+
+@JvmInline
+value class PayoutId(val value: String)
+
+
+sealed interface Payout {
+    val payoutId: PayoutId
+}
 
 
 data class InterestRatePayout(
+    override val payoutId: PayoutId,
     val payerReceiver: PayerReceiver,
     val notional: QuantitySchedule<Currency, Dimensionless>,
     val calculationPeriodDates: CalculationPeriodDates,

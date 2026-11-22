@@ -81,6 +81,7 @@ class PayoutTest {
 
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             InterestRatePayout(
+                payoutId = PayoutId("floating-rate"),
                 payerReceiver = PayerReceiver(payer = receiver, receiver = payer),
                 notional = notional,
                 calculationPeriodDates = calculationPeriodDates,
@@ -172,6 +173,7 @@ class PayoutTest {
 
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             InterestRatePayout(
+                payoutId = PayoutId("floating-rate"),
                 payerReceiver = PayerReceiver(payer = receiver, receiver = payer),
                 notional = notional,
                 calculationPeriodDates = calculationPeriodDates,
@@ -259,6 +261,7 @@ class PayoutTest {
 
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             InterestRatePayout(
+                payoutId = PayoutId("floating-rate"),
                 payerReceiver = PayerReceiver(payer = receiver, receiver = payer),
                 notional = notional,
                 calculationPeriodDates = calculationPeriodDates,
