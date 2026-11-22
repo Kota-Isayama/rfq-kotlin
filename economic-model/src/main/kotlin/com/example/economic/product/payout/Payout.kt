@@ -17,8 +17,8 @@ import java.math.BigDecimal
 @JvmInline
 value class PayoutId(val value: String) {
     init {
-        require(value.isNotEmpty()) {
-            "PayoutId must not be empty"
+        require(value.isNotBlank()) {
+            "PayoutId must not be blank"
         }
     }
 }
