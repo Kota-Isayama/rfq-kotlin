@@ -36,7 +36,7 @@ data class PeriodicDateSchedule(
         }
 
         require(scheduleFrequency.frequency.periodUnit != PeriodUnit.TERM) {
-            "Schedule frequency must be equal to TERM"
+            "Schedule frequency must not be equal to TERM"
         }
     }
 }
