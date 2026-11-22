@@ -9,14 +9,14 @@ import com.example.economic.product.schedule.PaymentDaysOffset
 sealed interface TerminationEffect
 
 
-sealed interface AccruedInterrestTreatment: TerminationEffect {
+sealed interface AccruedInterestTreatment: TerminationEffect {
     val payoutIds: Set<PayoutId>
 }
 
 
 data class WaiveAccruedInterest(
     override val payoutIds: Set<PayoutId>
-) : AccruedInterrestTreatment {
+) : AccruedInterestTreatment {
     init {
         require(payoutIds.isNotEmpty()) { "PayoutId must not be empty" }
     }
@@ -26,7 +26,7 @@ data class WaiveAccruedInterest(
 data class PayAccruedInterest(
     override val payoutIds: Set<PayoutId>,
     val paymentDateRule: AccruedInterestPaymentDateRule
-): AccruedInterrestTreatment {
+): AccruedInterestTreatment {
     init {
         require(payoutIds.isNotEmpty()) {
             "PayoutId must not be empty"
@@ -46,7 +46,7 @@ data object RecalculatePaymentDate: AccruedInterestPaymentDateRule
 // KO固有の設定
 data class RelativePaymentDate(
     val relativeTo: AccruedInterestPaymentDateRelativeTo,
-    val paymentDateOffset: PaymentDaysOffset,
+    val paymentDateOffset: PaymentDaysOffset?,
     val paymentDateAdjustments: BusinessDayAdjustments
 ): AccruedInterestPaymentDateRule {
     enum class AccruedInterestPaymentDateRelativeTo {
@@ -55,7 +55,7 @@ data class RelativePaymentDate(
     }
 
     init {
-        if (paymentDateOffset.dayType == DayType.BUSINESS) {
+        if (paymentDateOffset?.dayType == DayType.BUSINESS) {
             require(paymentDateAdjustments.businessCenters.isNotEmpty()) { "Business Centers must not be empty when the offset is business days." }
         }
     }
