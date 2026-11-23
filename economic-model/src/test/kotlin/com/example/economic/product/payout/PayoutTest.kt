@@ -14,7 +14,7 @@ import com.example.economic.base.math.DateBasedSchedule
 import com.example.economic.base.math.Dimensionless
 import com.example.economic.base.math.Measure
 import com.example.economic.base.math.MeasureSchedule
-import com.example.economic.base.math.PeriodBasedSchedule
+import com.example.economic.base.math.OrdinalBasedSchedule
 import com.example.economic.base.math.QuantitySchedule
 import com.example.economic.base.party.CounterpartyRole
 import com.example.economic.base.party.PayerReceiver
@@ -40,11 +40,11 @@ class PayoutTest {
         val receiver = CounterpartyRole.PARTY2
         val notional = QuantitySchedule(
             measure = MeasureSchedule(
-                valueSchedule = PeriodBasedSchedule(
+                valueSchedule = OrdinalBasedSchedule(
                     initialValue = BigDecimal("-1000000"),
                     steps = listOf(
-                        PeriodBasedSchedule.PeriodStep(
-                            fromCalculationPeriodNumber = 2,
+                        OrdinalBasedSchedule.PeriodStep(
+                            fromOrdinal = 2,
                             value = BigDecimal("2000000"),
                         )
                     ),
@@ -90,11 +90,11 @@ class PayoutTest {
                 rateSpecification = FloatingRateSpecification(
                     index = RateIndex.JPY_TONA,
                     spread = Constant(value = BigDecimal("0")),
-                    multiplier = PeriodBasedSchedule(
+                    multiplier = OrdinalBasedSchedule(
                         initialValue = BigDecimal("1.0"),
                         steps = listOf(
-                            PeriodBasedSchedule.PeriodStep(
-                                fromCalculationPeriodNumber = 2,
+                            OrdinalBasedSchedule.PeriodStep(
+                                fromOrdinal = 2,
                                 value = BigDecimal("2.0"),
                             )
                         )
@@ -182,11 +182,11 @@ class PayoutTest {
                 rateSpecification = FloatingRateSpecification(
                     index = RateIndex.JPY_TONA,
                     spread = Constant(value = BigDecimal("0")),
-                    multiplier = PeriodBasedSchedule(
+                    multiplier = OrdinalBasedSchedule(
                         initialValue = BigDecimal("1.0"),
                         steps = listOf(
-                            PeriodBasedSchedule.PeriodStep(
-                                fromCalculationPeriodNumber = 2,
+                            OrdinalBasedSchedule.PeriodStep(
+                                fromOrdinal = 2,
                                 value = BigDecimal("2.0"),
                             )
                         )
@@ -220,11 +220,11 @@ class PayoutTest {
         val receiver = CounterpartyRole.PARTY2
         val notional = QuantitySchedule(
             measure = MeasureSchedule(
-                valueSchedule = PeriodBasedSchedule(
+                valueSchedule = OrdinalBasedSchedule(
                     initialValue = BigDecimal("1000000"),
                     steps = listOf(
-                        PeriodBasedSchedule.PeriodStep(
-                            fromCalculationPeriodNumber = 2,
+                        OrdinalBasedSchedule.PeriodStep(
+                            fromOrdinal = 2,
                             value = BigDecimal("-500000"),
                         )
                     ),
@@ -270,11 +270,11 @@ class PayoutTest {
                 rateSpecification = FloatingRateSpecification(
                     index = RateIndex.JPY_TONA,
                     spread = Constant(value = BigDecimal("0")),
-                    multiplier = PeriodBasedSchedule(
+                    multiplier = OrdinalBasedSchedule(
                         initialValue = BigDecimal("1.0"),
                         steps = listOf(
-                            PeriodBasedSchedule.PeriodStep(
-                                fromCalculationPeriodNumber = 2,
+                            OrdinalBasedSchedule.PeriodStep(
+                                fromOrdinal = 2,
                                 value = BigDecimal("2.0"),
                             )
                         )

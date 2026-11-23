@@ -28,12 +28,12 @@ class ValueScheduleTest {
             stepDateAdjustments = noAdjustment,
         )
 
-    private fun periodSchedule(vararg periods: Int): PeriodBasedSchedule<BigDecimal> =
-        PeriodBasedSchedule(
+    private fun periodSchedule(vararg periods: Int): OrdinalBasedSchedule<BigDecimal> =
+        OrdinalBasedSchedule(
             initialValue = initialValue,
             steps = periods.mapIndexed { index, period ->
-                PeriodBasedSchedule.PeriodStep(
-                    fromCalculationPeriodNumber = period,
+                OrdinalBasedSchedule.PeriodStep(
+                    fromOrdinal = period,
                     value = BigDecimal.valueOf(index.toLong() + 2, 2),
                 )
             },
@@ -105,8 +105,8 @@ class ValueScheduleTest {
     @ValueSource(ints = [-1, 0, 1])
     fun `Period step rejects period numbers below two`(period: Int) {
         assertThrows<IllegalArgumentException> {
-            PeriodBasedSchedule.PeriodStep(
-                fromCalculationPeriodNumber = period,
+            OrdinalBasedSchedule.PeriodStep(
+                fromOrdinal = period,
                 value = BigDecimal("0.02"),
             )
         }

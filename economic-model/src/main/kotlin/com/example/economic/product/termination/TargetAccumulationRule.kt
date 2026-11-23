@@ -59,5 +59,9 @@ data class AmountTarget(
         ) {
             "Target Amount currency must be quote currency."
         }
+
+        require(targetAmount.value > BigDecimal.ZERO) {
+            "Target Amount must be positive."
+        }
     }
 }

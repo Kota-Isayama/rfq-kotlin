@@ -6,7 +6,7 @@ import com.example.economic.base.math.Constant
 import com.example.economic.base.math.Currency
 import com.example.economic.base.math.DateBasedSchedule
 import com.example.economic.base.math.Dimensionless
-import com.example.economic.base.math.PeriodBasedSchedule
+import com.example.economic.base.math.OrdinalBasedSchedule
 import com.example.economic.base.math.QuantitySchedule
 import com.example.economic.base.party.PayerReceiver
 import com.example.economic.product.schedule.CalculationPeriodDates
@@ -53,7 +53,7 @@ data class InterestRatePayout(
                 notional.measure.valueSchedule.initialValue > BigDecimal.ZERO
                         && notional.measure.valueSchedule.steps.all { it.value > BigDecimal.ZERO }
             }
-            is PeriodBasedSchedule<BigDecimal> -> {
+            is OrdinalBasedSchedule<BigDecimal> -> {
                 notional.measure.valueSchedule.initialValue > BigDecimal.ZERO
                         && notional.measure.valueSchedule.steps.all { it.value > BigDecimal.ZERO }
             }

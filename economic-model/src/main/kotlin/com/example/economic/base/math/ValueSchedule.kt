@@ -35,21 +35,21 @@ data class DateBasedSchedule<out T: Any>(
 }
 
 
-data class PeriodBasedSchedule<out T: Any>(
+data class OrdinalBasedSchedule<out T: Any>(
     val initialValue: T,
     val steps: List<PeriodStep<T>>
 ): ValueSchedule<T> {
     data class PeriodStep<out T: Any>(
-        val fromCalculationPeriodNumber: Int,
+        val fromOrdinal: Int,
         val value: T,
     ) {
         init {
-            require(fromCalculationPeriodNumber > 0) {
-                "FromCalculationPeriodNumber must be positive"
+            require(fromOrdinal > 0) {
+                "FromOrdinal must be positive"
             }
 
-            require(fromCalculationPeriodNumber != 1) {
-                "First calculation period value must be specified as initialValue."
+            require(fromOrdinal != 1) {
+                "First ordinal value must be specified as initialValue."
             }
         }
     }
@@ -61,10 +61,10 @@ data class PeriodBasedSchedule<out T: Any>(
 
         require(
             steps.zipWithNext().all { (a, b) ->
-                a.fromCalculationPeriodNumber < b.fromCalculationPeriodNumber
+                a.fromOrdinal < b.fromOrdinal
             }
         ) {
-            "FromCaluculationPeriodNumber must be strictly increasing."
+            "FromOrdinal must be strictly increasing."
         }
     }
 }
