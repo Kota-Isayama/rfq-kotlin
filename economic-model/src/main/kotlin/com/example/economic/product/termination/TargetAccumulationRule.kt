@@ -4,7 +4,9 @@ import com.example.economic.base.datetime.DateSchedule
 import com.example.economic.base.math.Currency
 import com.example.economic.base.math.Dimensionless
 import com.example.economic.base.math.Measure
+import com.example.economic.base.math.MeasureSchedule
 import com.example.economic.base.math.QuantitySchedule
+import com.example.economic.base.math.ValueSchedule
 import com.example.economic.observable.ForeignExchangeRateIndex
 import com.example.economic.observable.event.Trigger
 import java.math.BigDecimal
@@ -36,7 +38,7 @@ enum class FxDifferenceDirection {
 
 data class FxDifferenceContribution(
     val index: ForeignExchangeRateIndex,
-    val strike: BigDecimal,
+    val strike: ValueSchedule<BigDecimal>,
     val notional: QuantitySchedule<Currency, Dimensionless>,
     val direction: FxDifferenceDirection,
 ) {
