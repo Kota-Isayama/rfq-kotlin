@@ -1,13 +1,13 @@
-package com.example.economic.product.schedule
+package com.example.economic.base.datetime
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class PaymentDaysOffsetTest {
+class DaysOffsetTest {
     @Test
     fun `Zero is not valid days offset`() {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
-            PaymentDaysOffset(
+            DaysOffset(
                 days = 0,
                 dayType = DayType.BUSINESS
             )

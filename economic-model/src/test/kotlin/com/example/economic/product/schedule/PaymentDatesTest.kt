@@ -2,6 +2,8 @@ package com.example.economic.product.schedule
 
 import com.example.economic.base.datetime.BusinessDayAdjustments
 import com.example.economic.base.datetime.BusinessDayConvention
+import com.example.economic.base.datetime.DayType
+import com.example.economic.base.datetime.DaysOffset
 import com.example.economic.base.datetime.Frequency
 import com.example.economic.base.datetime.PeriodUnit
 import org.junit.jupiter.api.Assertions
@@ -17,7 +19,7 @@ class PaymentDatesTest {
                 convention = BusinessDayConvention.NONE,
                 centers = setOf(),
             ),
-            paymentDateOffset = PaymentDaysOffset(
+            paymentDateOffset = DaysOffset(
                 days = 2,
                 dayType = DayType.CALENDAR
             ),
@@ -34,7 +36,7 @@ class PaymentDatesTest {
                     convention = BusinessDayConvention.NONE,
                     centers = emptySet(),
                 ),
-                paymentDateOffset = PaymentDaysOffset(
+                paymentDateOffset = DaysOffset(
                     days = 2,
                     dayType = DayType.BUSINESS
                 ),

@@ -2,8 +2,8 @@ package com.example.economic.product.termination
 
 import com.example.economic.base.datetime.BusinessDayAdjustments
 import com.example.economic.product.payout.PayoutId
-import com.example.economic.product.schedule.DayType
-import com.example.economic.product.schedule.PaymentDaysOffset
+import com.example.economic.base.datetime.DayType
+import com.example.economic.base.datetime.DaysOffset
 
 
 sealed interface TerminationEffect
@@ -46,7 +46,7 @@ data object RecalculatePaymentDate: AccruedInterestPaymentDateRule
 // KO固有の設定
 data class RelativePaymentDate(
     val relativeTo: AccruedInterestPaymentDateRelativeTo,
-    val paymentDateOffset: PaymentDaysOffset?,
+    val paymentDateOffset: DaysOffset?,
     val paymentDateAdjustments: BusinessDayAdjustments
 ): AccruedInterestPaymentDateRule {
     enum class AccruedInterestPaymentDateRelativeTo {

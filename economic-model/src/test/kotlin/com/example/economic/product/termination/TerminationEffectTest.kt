@@ -3,9 +3,8 @@ package com.example.economic.product.termination
 import com.example.economic.base.datetime.BusinessCenter
 import com.example.economic.base.datetime.BusinessDayAdjustments
 import com.example.economic.base.datetime.BusinessDayConvention
-import com.example.economic.product.payout.PayoutId
-import com.example.economic.product.schedule.DayType
-import com.example.economic.product.schedule.PaymentDaysOffset
+import com.example.economic.base.datetime.DayType
+import com.example.economic.base.datetime.DaysOffset
 import com.example.economic.product.termination.RelativePaymentDate.AccruedInterestPaymentDateRelativeTo
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -36,7 +35,7 @@ class TerminationEffectTest {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             RelativePaymentDate(
                 relativeTo = AccruedInterestPaymentDateRelativeTo.TERMINATION_DATE,
-                paymentDateOffset = PaymentDaysOffset(
+                paymentDateOffset = DaysOffset(
                     days = 2,
                     dayType = DayType.BUSINESS
                 ),
@@ -58,7 +57,7 @@ class TerminationEffectTest {
     fun `RelativePaymentDate accepts calendar day offset without business centers`() {
         RelativePaymentDate(
             relativeTo = AccruedInterestPaymentDateRelativeTo.TERMINATION_DATE,
-            paymentDateOffset = PaymentDaysOffset(
+            paymentDateOffset = DaysOffset(
                 days = 2,
                 dayType = DayType.CALENDAR
             ),
@@ -70,7 +69,7 @@ class TerminationEffectTest {
     fun `RelativePaymentDate accepts business day offset with business centers`() {
         RelativePaymentDate(
             relativeTo = AccruedInterestPaymentDateRelativeTo.TERMINATION_DATE,
-            paymentDateOffset = PaymentDaysOffset(
+            paymentDateOffset = DaysOffset(
                 days = 2,
                 dayType = DayType.BUSINESS
             ),

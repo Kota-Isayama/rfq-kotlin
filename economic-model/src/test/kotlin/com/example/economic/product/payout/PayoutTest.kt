@@ -23,11 +23,11 @@ import com.example.economic.product.rate.Compounding
 import com.example.economic.product.rate.FloatingRateSpecification
 import com.example.economic.product.rate.NoShift
 import com.example.economic.product.schedule.CalculationPeriodDates
-import com.example.economic.product.schedule.DayType
+import com.example.economic.base.datetime.DayType
 import com.example.economic.product.schedule.NoneStub
 import com.example.economic.product.schedule.PayRelativeTo
 import com.example.economic.product.schedule.PaymentDates
-import com.example.economic.product.schedule.PaymentDaysOffset
+import com.example.economic.base.datetime.DaysOffset
 import org.junit.jupiter.api.Assertions
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -72,7 +72,7 @@ class PayoutTest {
         val paymentDates = PaymentDates(
             paymentFrequency = Frequency(periodMultiplier = 1, periodUnit = PeriodUnit.YEAR),
             payRelativeTo = PayRelativeTo.CALCULATION_PERIOD_END_DATE,
-            paymentDateOffset = PaymentDaysOffset(dayType = DayType.BUSINESS, days = 2),
+            paymentDateOffset = DaysOffset(dayType = DayType.BUSINESS, days = 2),
             paymentDatesAdjustments = BusinessDayAdjustments.create(
                 convention = BusinessDayConvention.MODFOLLOWING,
                 centers = setOf(BusinessCenter("JPTO"))
@@ -164,7 +164,7 @@ class PayoutTest {
         val paymentDates = PaymentDates(
             paymentFrequency = Frequency(periodMultiplier = 1, periodUnit = PeriodUnit.YEAR),
             payRelativeTo = PayRelativeTo.CALCULATION_PERIOD_END_DATE,
-            paymentDateOffset = PaymentDaysOffset(dayType = DayType.BUSINESS, days = 2),
+            paymentDateOffset = DaysOffset(dayType = DayType.BUSINESS, days = 2),
             paymentDatesAdjustments = BusinessDayAdjustments.create(
                 convention = BusinessDayConvention.MODFOLLOWING,
                 centers = setOf(BusinessCenter("JPTO"))
@@ -252,7 +252,7 @@ class PayoutTest {
         val paymentDates = PaymentDates(
             paymentFrequency = Frequency(periodMultiplier = 1, periodUnit = PeriodUnit.YEAR),
             payRelativeTo = PayRelativeTo.CALCULATION_PERIOD_END_DATE,
-            paymentDateOffset = PaymentDaysOffset(dayType = DayType.BUSINESS, days = 2),
+            paymentDateOffset = DaysOffset(dayType = DayType.BUSINESS, days = 2),
             paymentDatesAdjustments = BusinessDayAdjustments.create(
                 convention = BusinessDayConvention.MODFOLLOWING,
                 centers = setOf(BusinessCenter("JPTO"))

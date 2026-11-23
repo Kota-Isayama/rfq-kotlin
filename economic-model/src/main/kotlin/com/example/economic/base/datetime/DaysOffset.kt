@@ -1,4 +1,4 @@
-package com.example.economic.product.schedule
+package com.example.economic.base.datetime
 
 
 enum class DayType {
@@ -7,7 +7,7 @@ enum class DayType {
 }
 
 
-data class PaymentDaysOffset(
+data class DaysOffset(
     val days: Int,
     val dayType: DayType,
 ) {
