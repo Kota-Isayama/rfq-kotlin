@@ -25,8 +25,23 @@ import com.example.economic.product.schedule.NoneStub
 import com.example.economic.product.schedule.PayRelativeTo
 import com.example.economic.product.schedule.PaymentDates
 import com.example.economic.base.datetime.DaysOffset
+import com.example.economic.base.datetime.ExplicitDateSchedule
+import com.example.economic.base.datetime.RelativeDateRule
+import com.example.economic.base.math.Constant
+import com.example.economic.observable.ComparisonOperator
+import com.example.economic.observable.ObservableValue
+import com.example.economic.observable.RateIndex
+import com.example.economic.observable.event.Trigger
+import com.example.economic.observable.event.TriggerEvent
+import com.example.economic.product.termination.KnockOut
+import com.example.economic.product.termination.OriginalPaymentDate
+import com.example.economic.product.termination.PayAccruedInterest
+import com.example.economic.product.termination.RelativeTerminationDate
+import com.example.economic.product.termination.TerminationEffect
+import com.example.economic.product.termination.WaiveAccruedInterest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import java.math.BigDecimal
 import java.time.LocalDate
 
@@ -36,6 +51,7 @@ class EconomicTermsTest {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             EconomicTerms(
                 payouts = emptyList(),
+                knockOut = null
             )
         }
     }
@@ -112,7 +128,170 @@ class EconomicTermsTest {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             EconomicTerms(
                 payouts = listOf(fixedRatePayout, anotherPayout),
+                knockOut = null
             )
         }
     }
+}
+
+
+class KnockOutValidationTest {
+
+    private val fixedId = PayoutId("fixed")
+    private val floatingId = PayoutId("floating")
+
+    @Test
+    fun `different accrued interest treatments per payout are allowed`() {
+        assertDoesNotThrow {
+            terms(
+                setOf(
+                    PayAccruedInterest(
+                        payoutIds = setOf(fixedId),
+                        paymentDateRule = OriginalPaymentDate
+                    ),
+                    WaiveAccruedInterest(
+                        payoutIds = setOf(floatingId)
+                    )
+                )
+            )
+        }
+    }
+
+    @Test
+    fun `missing accrued interest treatment is rejected`() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            terms(
+                setOf(
+                    PayAccruedInterest(
+                        payoutIds = setOf(fixedId),
+                        paymentDateRule = OriginalPaymentDate
+                    )
+                )
+            )
+        }
+    }
+
+    @Test
+    fun `conflicting treatments for the same payout are rejected`() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            terms(
+                setOf(
+                    PayAccruedInterest(
+                        payoutIds = setOf(fixedId, floatingId),
+                        paymentDateRule = OriginalPaymentDate
+                    ),
+                    WaiveAccruedInterest(
+                        payoutIds = setOf(fixedId)
+                    )
+                )
+            )
+        }
+    }
+
+    @Test
+    fun `unknown payout reference is rejected`() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            terms(
+                setOf(
+                    PayAccruedInterest(
+                        payoutIds = setOf(fixedId, floatingId),
+                        paymentDateRule = OriginalPaymentDate
+                    ),
+                    WaiveAccruedInterest(
+                        payoutIds = setOf(PayoutId("unknown"))
+                    )
+                )
+            )
+        }
+    }
+
+    @Test
+    fun `empty effects are rejected when interest rate payouts exist`() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            terms(emptySet())
+        }
+    }
+
+    private fun terms(effects: Set<TerminationEffect>): EconomicTerms {
+        return EconomicTerms(
+            payouts = listOf(
+                payout(fixedId),
+                payout(floatingId)
+            ),
+            knockOut = KnockOut(
+                triggerEvent = TriggerEvent(
+                    trigger = Trigger(
+                        value = ObservableValue(RateIndex.JPY_TONA),
+                        comparison = ComparisonOperator.GREATER_OR_EQUAL,
+                        threshold = BigDecimal("0.05")
+                    ),
+                    observationSchedule = ExplicitDateSchedule(
+                        unadjustedDates = listOf(
+                            LocalDate.parse("2026-06-15")
+                        ),
+                        dateAdjustments = noAdjustment()
+                    )
+                ),
+                terminationDateRule = RelativeTerminationDate(
+                    relativeTo =
+                        RelativeTerminationDate.TerminationDateRelativeTo.TRIGGER_DATE,
+                    dateRule = RelativeDateRule(
+                        offset = null,
+                        adjustments = noAdjustment()
+                    )
+                ),
+                effects = effects
+            )
+        )
+    }
+
+    private fun payout(id: PayoutId): InterestRatePayout {
+        val adjustments = BusinessDayAdjustments.create(
+            convention = BusinessDayConvention.MODFOLLOWING,
+            centers = setOf(BusinessCenter("JPTO"))
+        )
+
+        return InterestRatePayout(
+            payoutId = id,
+            payerReceiver = PayerReceiver(
+                payer = CounterpartyRole.PARTY1,
+                receiver = CounterpartyRole.PARTY2
+            ),
+            notional = QuantitySchedule(
+                measure = MeasureSchedule(
+                    valueSchedule = Constant(BigDecimal("1000000")),
+                    unit = Currency.JPY
+                ),
+                multiplier = Measure(
+                    value = BigDecimal.ONE,
+                    unit = Dimensionless
+                )
+            ),
+            calculationPeriodDates = CalculationPeriodDates(
+                unadjustedEffectiveDate = LocalDate.parse("2026-01-01"),
+                unadjustedTerminationDate = LocalDate.parse("2027-01-01"),
+                scheduleFrequency = ScheduleFrequency(
+                    frequency = Frequency(1, PeriodUnit.YEAR),
+                    rollConvention = DayOfMonth(1)
+                ),
+                calculationPeriodDatesAdjustments = adjustments,
+                stub = NoneStub
+            ),
+            paymentDates = PaymentDates(
+                paymentFrequency = Frequency(1, PeriodUnit.YEAR),
+                payRelativeTo = PayRelativeTo.CALCULATION_PERIOD_END_DATE,
+                paymentDateOffset = DaysOffset(2, DayType.BUSINESS),
+                paymentDatesAdjustments = adjustments
+            ),
+            dayCountFraction = DayCountFraction.ACT_365_FIXED,
+            rateSpecification = FixedRateSpecification(
+                rate = Constant(BigDecimal("0.01"))
+            )
+        )
+    }
+
+    private fun noAdjustment() = BusinessDayAdjustments.create(
+        convention = BusinessDayConvention.NONE,
+        centers = emptySet()
+    )
 }

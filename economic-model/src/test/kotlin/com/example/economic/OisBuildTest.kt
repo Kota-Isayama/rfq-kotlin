@@ -144,6 +144,7 @@ class OisBuildTest {
 
         EconomicTerms(
             payouts = listOf(floatingRatePayout, fixedRatePayout),
+            knockOut = null
         )
     }
 }

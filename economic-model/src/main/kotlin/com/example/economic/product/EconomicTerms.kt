@@ -1,9 +1,13 @@
 package com.example.economic.product
 
+import com.example.economic.product.payout.InterestRatePayout
 import com.example.economic.product.payout.Payout
+import com.example.economic.product.termination.AccruedInterestTreatment
+import com.example.economic.product.termination.KnockOut
 
 data class EconomicTerms(
     val payouts: List<Payout>,
+    val knockOut: KnockOut?
 ) {
     init {
         require(payouts.isNotEmpty()) {
@@ -14,6 +18,33 @@ data class EconomicTerms(
             payouts.map {it.payoutId}.toSet().size == payouts.size
         ) {
             "Payout IDs must be unique."
+        }
+
+        validAccruedInterestTreatments()
+    }
+
+    private fun validAccruedInterestTreatments() {
+        if (knockOut == null) {
+            return  // There are no requirements when KO is not specified.
+        }
+
+        val requiredIds = payouts
+            .filterIsInstance<InterestRatePayout>()
+            .map { it.payoutId }
+            .toSet()
+
+        val counts = knockOut.effects
+            .filterIsInstance<AccruedInterestTreatment>()
+            .flatMap { it.payoutIds }
+            .groupingBy { it }
+            .eachCount()
+
+        require(counts.keys == requiredIds) {
+            "Accrued interest treatments must cover exactly the interest rate payouts."
+        }
+
+        require(counts.values.all { it == 1}) {
+            "Each interest rate payout must have exactly one accrued interest treatment."
         }
     }
 }
