@@ -20,10 +20,10 @@ data class EconomicTerms(
             "Payout IDs must be unique."
         }
 
-        validAccruedInterestTreatments()
+        validateAccruedInterestTreatments()
     }
 
-    private fun validAccruedInterestTreatments() {
+    private fun validateAccruedInterestTreatments() {
         if (knockOut == null) {
             return  // There are no requirements when KO is not specified.
         }

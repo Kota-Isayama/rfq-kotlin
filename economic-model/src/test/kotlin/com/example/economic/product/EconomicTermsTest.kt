@@ -137,8 +137,8 @@ class EconomicTermsTest {
 
 class KnockOutValidationTest {
 
-    private val fixedId = PayoutId("fixed")
-    private val floatingId = PayoutId("floating")
+    private val leg1Id = PayoutId("leg1")
+    private val leg2Id = PayoutId("leg2")
 
     @Test
     fun `different accrued interest treatments per payout are allowed`() {
@@ -146,11 +146,11 @@ class KnockOutValidationTest {
             terms(
                 setOf(
                     PayAccruedInterest(
-                        payoutIds = setOf(fixedId),
+                        payoutIds = setOf(leg1Id),
                         paymentDateRule = OriginalPaymentDate
                     ),
                     WaiveAccruedInterest(
-                        payoutIds = setOf(floatingId)
+                        payoutIds = setOf(leg2Id)
                     )
                 )
             )
@@ -163,7 +163,7 @@ class KnockOutValidationTest {
             terms(
                 setOf(
                     PayAccruedInterest(
-                        payoutIds = setOf(fixedId),
+                        payoutIds = setOf(leg1Id),
                         paymentDateRule = OriginalPaymentDate
                     )
                 )
@@ -177,11 +177,11 @@ class KnockOutValidationTest {
             terms(
                 setOf(
                     PayAccruedInterest(
-                        payoutIds = setOf(fixedId, floatingId),
+                        payoutIds = setOf(leg1Id, leg2Id),
                         paymentDateRule = OriginalPaymentDate
                     ),
                     WaiveAccruedInterest(
-                        payoutIds = setOf(fixedId)
+                        payoutIds = setOf(leg1Id)
                     )
                 )
             )
@@ -194,7 +194,7 @@ class KnockOutValidationTest {
             terms(
                 setOf(
                     PayAccruedInterest(
-                        payoutIds = setOf(fixedId, floatingId),
+                        payoutIds = setOf(leg1Id, leg2Id),
                         paymentDateRule = OriginalPaymentDate
                     ),
                     WaiveAccruedInterest(
@@ -215,8 +215,8 @@ class KnockOutValidationTest {
     private fun terms(effects: Set<TerminationEffect>): EconomicTerms {
         return EconomicTerms(
             payouts = listOf(
-                payout(fixedId),
-                payout(floatingId)
+                payout(leg1Id),
+                payout(leg2Id)
             ),
             knockOut = KnockOut(
                 triggerEvent = TriggerEvent(
