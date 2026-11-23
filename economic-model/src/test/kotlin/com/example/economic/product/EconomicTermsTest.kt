@@ -33,6 +33,7 @@ import com.example.economic.observable.ObservableValue
 import com.example.economic.observable.RateIndex
 import com.example.economic.observable.event.Trigger
 import com.example.economic.observable.event.TriggerEvent
+import com.example.economic.product.termination.BarrierTriggerCondition
 import com.example.economic.product.termination.KnockOutProvision
 import com.example.economic.product.termination.OriginalPaymentDate
 import com.example.economic.product.termination.PayAccruedInterest
@@ -219,17 +220,19 @@ class KnockOutProvisionValidationTest {
                 payout(leg2Id)
             ),
             knockOutProvision = KnockOutProvision(
-                condition = TriggerEvent(
-                    trigger = Trigger(
-                        value = ObservableValue(RateIndex.JPY_TONA),
-                        comparison = ComparisonOperator.GREATER_OR_EQUAL,
-                        threshold = BigDecimal("0.05")
-                    ),
-                    observationSchedule = ExplicitDateSchedule(
-                        unadjustedDates = listOf(
-                            LocalDate.parse("2026-06-15")
+                condition = BarrierTriggerCondition(
+                    TriggerEvent(
+                        trigger = Trigger(
+                            value = ObservableValue(RateIndex.JPY_TONA),
+                            comparison = ComparisonOperator.GREATER_OR_EQUAL,
+                            threshold = BigDecimal("0.05")
                         ),
-                        dateAdjustments = noAdjustment()
+                        observationSchedule = ExplicitDateSchedule(
+                            unadjustedDates = listOf(
+                                LocalDate.parse("2026-06-15")
+                            ),
+                            dateAdjustments = noAdjustment()
+                        )
                     )
                 ),
                 terminationDateRule = RelativeTerminationDate(
