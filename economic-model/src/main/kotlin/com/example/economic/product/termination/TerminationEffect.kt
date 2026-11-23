@@ -4,6 +4,7 @@ import com.example.economic.base.datetime.BusinessDayAdjustments
 import com.example.economic.product.payout.PayoutId
 import com.example.economic.base.datetime.DayType
 import com.example.economic.base.datetime.DaysOffset
+import com.example.economic.base.datetime.RelativeDateRule
 
 
 sealed interface TerminationEffect
@@ -46,18 +47,24 @@ data object RecalculatePaymentDate: AccruedInterestPaymentDateRule
 // KO固有の設定
 data class RelativePaymentDate(
     val relativeTo: AccruedInterestPaymentDateRelativeTo,
-    val paymentDateOffset: DaysOffset?,
-    val paymentDateAdjustments: BusinessDayAdjustments
+    val dateRule: RelativeDateRule,
 ): AccruedInterestPaymentDateRule {
     enum class AccruedInterestPaymentDateRelativeTo {
         TRIGGER_DATE,
         TERMINATION_DATE;
     }
+}
 
-    init {
-        if (paymentDateOffset?.dayType == DayType.BUSINESS) {
-            require(paymentDateAdjustments.businessCenters.isNotEmpty()) { "Business Centers must not be empty when the offset is business days." }
-        }
+
+sealed interface TerminationDateRule
+
+
+data class RelativeTerminationDate(
+    val relativeTo: TerminationDateRelativeTo,
+    val dateRule: RelativeDateRule,
+): TerminationDateRule {
+    enum class TerminationDateRelativeTo {
+        TRIGGER_DATE;
     }
 }
 
