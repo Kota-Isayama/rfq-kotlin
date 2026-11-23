@@ -3,11 +3,11 @@ package com.example.economic.product
 import com.example.economic.product.payout.InterestRatePayout
 import com.example.economic.product.payout.Payout
 import com.example.economic.product.termination.AccruedInterestTreatment
-import com.example.economic.product.termination.KnockOut
+import com.example.economic.product.termination.KnockOutProvision
 
 data class EconomicTerms(
     val payouts: List<Payout>,
-    val knockOut: KnockOut?
+    val knockOutProvision: KnockOutProvision?
 ) {
     init {
         require(payouts.isNotEmpty()) {
@@ -24,7 +24,7 @@ data class EconomicTerms(
     }
 
     private fun validateAccruedInterestTreatments() {
-        if (knockOut == null) {
+        if (knockOutProvision == null) {
             return  // There are no requirements when KO is not specified.
         }
 
@@ -33,7 +33,7 @@ data class EconomicTerms(
             .map { it.payoutId }
             .toSet()
 
-        val counts = knockOut.effects
+        val counts = knockOutProvision.effects
             .filterIsInstance<AccruedInterestTreatment>()
             .flatMap { it.payoutIds }
             .groupingBy { it }

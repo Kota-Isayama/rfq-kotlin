@@ -33,7 +33,7 @@ import com.example.economic.observable.ObservableValue
 import com.example.economic.observable.RateIndex
 import com.example.economic.observable.event.Trigger
 import com.example.economic.observable.event.TriggerEvent
-import com.example.economic.product.termination.KnockOut
+import com.example.economic.product.termination.KnockOutProvision
 import com.example.economic.product.termination.OriginalPaymentDate
 import com.example.economic.product.termination.PayAccruedInterest
 import com.example.economic.product.termination.RelativeTerminationDate
@@ -51,7 +51,7 @@ class EconomicTermsTest {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             EconomicTerms(
                 payouts = emptyList(),
-                knockOut = null
+                knockOutProvision = null
             )
         }
     }
@@ -128,14 +128,14 @@ class EconomicTermsTest {
         Assertions.assertThrows(IllegalArgumentException::class.java) {
             EconomicTerms(
                 payouts = listOf(fixedRatePayout, anotherPayout),
-                knockOut = null
+                knockOutProvision = null
             )
         }
     }
 }
 
 
-class KnockOutValidationTest {
+class KnockOutProvisionValidationTest {
 
     private val leg1Id = PayoutId("leg1")
     private val leg2Id = PayoutId("leg2")
@@ -218,8 +218,8 @@ class KnockOutValidationTest {
                 payout(leg1Id),
                 payout(leg2Id)
             ),
-            knockOut = KnockOut(
-                triggerEvent = TriggerEvent(
+            knockOutProvision = KnockOutProvision(
+                condition = TriggerEvent(
                     trigger = Trigger(
                         value = ObservableValue(RateIndex.JPY_TONA),
                         comparison = ComparisonOperator.GREATER_OR_EQUAL,
