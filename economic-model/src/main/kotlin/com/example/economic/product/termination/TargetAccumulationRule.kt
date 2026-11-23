@@ -4,7 +4,6 @@ import com.example.economic.base.datetime.DateSchedule
 import com.example.economic.base.math.Currency
 import com.example.economic.base.math.Dimensionless
 import com.example.economic.base.math.Measure
-import com.example.economic.base.math.MeasureSchedule
 import com.example.economic.base.math.QuantitySchedule
 import com.example.economic.base.math.ValueSchedule
 import com.example.economic.observable.ForeignExchangeRateIndex
@@ -31,16 +30,16 @@ data class CountTarget(
 }
 
 
-enum class FxDifferenceDirection {
-    INDEX_MINUS_STRIKE,
-    STRIKE_MINUS_INDEX;
+enum class FxDifferencePart {
+    POSITIVE_PART_OF_INDEX_MINUS_STRIKE,
+    POSITIVE_PART_OF_STRIKE_MINUS_INDEX
 }
 
 data class FxDifferenceContribution(
     val index: ForeignExchangeRateIndex,
     val strike: ValueSchedule<BigDecimal>,
     val notional: QuantitySchedule<Currency, Dimensionless>,
-    val direction: FxDifferenceDirection,
+    val fxDifferencePart: FxDifferencePart,
 ) {
     init {
         require(notional.measure.unit == index.currencyPair.baseCurrency) {
