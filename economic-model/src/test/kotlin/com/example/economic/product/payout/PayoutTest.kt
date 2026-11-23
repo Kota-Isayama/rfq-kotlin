@@ -43,7 +43,7 @@ class PayoutTest {
                 valueSchedule = OrdinalBasedSchedule(
                     initialValue = BigDecimal("-1000000"),
                     steps = listOf(
-                        OrdinalBasedSchedule.PeriodStep(
+                        OrdinalBasedSchedule.OrdinalStep(
                             fromOrdinal = 2,
                             value = BigDecimal("2000000"),
                         )
@@ -93,7 +93,7 @@ class PayoutTest {
                     multiplier = OrdinalBasedSchedule(
                         initialValue = BigDecimal("1.0"),
                         steps = listOf(
-                            OrdinalBasedSchedule.PeriodStep(
+                            OrdinalBasedSchedule.OrdinalStep(
                                 fromOrdinal = 2,
                                 value = BigDecimal("2.0"),
                             )
@@ -185,7 +185,7 @@ class PayoutTest {
                     multiplier = OrdinalBasedSchedule(
                         initialValue = BigDecimal("1.0"),
                         steps = listOf(
-                            OrdinalBasedSchedule.PeriodStep(
+                            OrdinalBasedSchedule.OrdinalStep(
                                 fromOrdinal = 2,
                                 value = BigDecimal("2.0"),
                             )
@@ -223,7 +223,7 @@ class PayoutTest {
                 valueSchedule = OrdinalBasedSchedule(
                     initialValue = BigDecimal("1000000"),
                     steps = listOf(
-                        OrdinalBasedSchedule.PeriodStep(
+                        OrdinalBasedSchedule.OrdinalStep(
                             fromOrdinal = 2,
                             value = BigDecimal("-500000"),
                         )
@@ -273,7 +273,7 @@ class PayoutTest {
                     multiplier = OrdinalBasedSchedule(
                         initialValue = BigDecimal("1.0"),
                         steps = listOf(
-                            OrdinalBasedSchedule.PeriodStep(
+                            OrdinalBasedSchedule.OrdinalStep(
                                 fromOrdinal = 2,
                                 value = BigDecimal("2.0"),
                             )

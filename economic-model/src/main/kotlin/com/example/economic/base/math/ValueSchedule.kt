@@ -37,9 +37,9 @@ data class DateBasedSchedule<out T: Any>(
 
 data class OrdinalBasedSchedule<out T: Any>(
     val initialValue: T,
-    val steps: List<PeriodStep<T>>
+    val steps: List<OrdinalStep<T>>
 ): ValueSchedule<T> {
-    data class PeriodStep<out T: Any>(
+    data class OrdinalStep<out T: Any>(
         val fromOrdinal: Int,
         val value: T,
     ) {

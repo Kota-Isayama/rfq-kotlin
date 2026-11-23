@@ -65,7 +65,7 @@ class EconomicTermsTest {
                 valueSchedule = OrdinalBasedSchedule(
                     initialValue = BigDecimal("1000000"),
                     steps = listOf(
-                        OrdinalBasedSchedule.PeriodStep(
+                        OrdinalBasedSchedule.OrdinalStep(
                             fromOrdinal = 2,
                             value = BigDecimal("2000000"),
                         )
@@ -112,7 +112,7 @@ class EconomicTermsTest {
                 rate = OrdinalBasedSchedule(
                     initialValue = BigDecimal("0.01"),
                     steps = listOf(
-                        OrdinalBasedSchedule.PeriodStep(
+                        OrdinalBasedSchedule.OrdinalStep(
                             fromOrdinal = 2,
                             value = BigDecimal("0.02"),
                         )
