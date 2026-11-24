@@ -14,12 +14,6 @@ import java.math.BigDecimal
 sealed interface TargetAccumulationRule
 
 
-//data class AmountTarget(
-//    val observationSchedule: DateSchedule,
-//    val contributionRule:
-//)
-
-
 data class CountTarget(
     val observationSchedule: DateSchedule,
     val qualifyingCondition: Trigger,

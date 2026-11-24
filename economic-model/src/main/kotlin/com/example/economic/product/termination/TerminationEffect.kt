@@ -68,3 +68,26 @@ data class RelativeTerminationDate(
     }
 }
 
+
+enum class TargetSettlementStyle {
+    EXCLUSIVE,
+    INCLUSIVE,
+    EXACT;
+}
+
+enum class ExactAdjustmentMethod {
+    VARIED_NOTIONAL,
+    VARIED_STRIKE;
+}
+
+
+data class TargetSettlementTreatment(
+    val style: TargetSettlementStyle,
+    val adjustmentMethod: ExactAdjustmentMethod?
+): TerminationEffect {
+    init {
+        require((style == TargetSettlementStyle.EXCLUSIVE) == (adjustmentMethod != null)) {
+            "Adjustment method must be specified if and only if style is EXACT."
+        }
+    }
+}

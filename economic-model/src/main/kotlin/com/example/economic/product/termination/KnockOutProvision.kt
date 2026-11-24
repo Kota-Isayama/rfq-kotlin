@@ -6,7 +6,24 @@ data class KnockOutProvision(
     val condition: KnockOutCondition,
     val terminationDateRule: TerminationDateRule,
     val effects: Set<TerminationEffect>
-)
+) {
+    init {
+        when (condition) {
+            is BarrierTriggerCondition -> {
+                require(effects.all { !(it is TargetSettlementTreatment)}) {
+                    "When BarrierTriggerCondition, TargetSettlement Treatment must not be specified."
+                }
+            }
+            is TargetCondition -> {
+                require(
+                    effects.size == 1 && effects.first() is TargetSettlementTreatment
+                ) {
+                    "When TargetSettlementTreatment, only TargetSettlement must be specified."
+                }
+            }
+        }
+    }
+}
 
 
 sealed interface KnockOutCondition
