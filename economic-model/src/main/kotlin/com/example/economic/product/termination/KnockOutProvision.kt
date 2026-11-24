@@ -16,9 +16,9 @@ data class KnockOutProvision(
             }
             is TargetCondition -> {
                 require(
-                    effects.size == 1 && effects.first() is TargetSettlementTreatment
+                    effects.count { it is TargetSettlementTreatment } == 1
                 ) {
-                    "When TargetSettlementTreatment, only TargetSettlement must be specified."
+                    "When TargetSettlementTreatment, exactly one TargetSettlement must be specified."
                 }
             }
         }

@@ -86,7 +86,7 @@ data class TargetSettlementTreatment(
     val adjustmentMethod: ExactAdjustmentMethod?
 ): TerminationEffect {
     init {
-        require((style == TargetSettlementStyle.EXCLUSIVE) == (adjustmentMethod != null)) {
+        require((style == TargetSettlementStyle.EXACT) == (adjustmentMethod != null)) {
             "Adjustment method must be specified if and only if style is EXACT."
         }
     }
