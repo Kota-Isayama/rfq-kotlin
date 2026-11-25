@@ -40,8 +40,6 @@ import com.example.economic.product.termination.ExactAdjustmentMethod
 import com.example.economic.product.termination.FxDifferenceContribution
 import com.example.economic.product.termination.FxDifferencePart
 import com.example.economic.product.termination.KnockOutProvision
-import com.example.economic.product.termination.OriginalPaymentDate
-import com.example.economic.product.termination.PayAccruedInterest
 import com.example.economic.product.termination.RelativeTerminationDate
 import com.example.economic.product.termination.TargetCondition
 import com.example.economic.product.termination.TargetSettlementStyle
@@ -152,10 +150,6 @@ class TarfBuildTest {
                 TargetSettlementTreatment(
                     style = TargetSettlementStyle.EXACT,
                     adjustmentMethod = ExactAdjustmentMethod.VARIED_NOTIONAL
-                ),
-                PayAccruedInterest(
-                    payoutIds = setOf(couponId),
-                    paymentDateRule = OriginalPaymentDate
                 )
             )
         )

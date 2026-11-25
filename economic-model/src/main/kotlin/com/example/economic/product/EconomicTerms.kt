@@ -39,8 +39,8 @@ data class EconomicTerms(
             .groupingBy { it }
             .eachCount()
 
-        require(counts.keys == requiredIds) {
-            "Accrued interest treatments must cover exactly the interest rate payouts."
+        require(counts.keys.all {it in requiredIds}) {
+            "Accrued interest treatments must reference InterestRatePayouts."
         }
 
         require(counts.values.all { it == 1}) {
