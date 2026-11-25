@@ -44,7 +44,7 @@ data class EconomicTerms(
         }
 
         require(counts.values.all { it == 1}) {
-            "Each interest rate payout must have exactly one accrued interest treatment."
+            "A payout may have at most one accrued interest treatment."
         }
     }
 }

@@ -75,7 +75,7 @@ class TarfBuildTest {
             ),
             calculationPeriodDates = CalculationPeriodDates(
                 unadjustedEffectiveDate = LocalDate.of(2027, 1, 1),
-                unadjustedTerminationDate = LocalDate.of(2028, 1, 2),
+                unadjustedTerminationDate = LocalDate.of(2028, 1, 1),
                 scheduleFrequency = ScheduleFrequency(
                     frequency = Frequency(3, PeriodUnit.MONTH),
                     rollConvention = DayOfMonth(1),
@@ -107,18 +107,10 @@ class TarfBuildTest {
         val target = AmountTarget(
             observationSchedule = ExplicitDateSchedule(
                 unadjustedDates = listOf(
-                    LocalDate.of(2026, 4, 1),
-                    LocalDate.of(2026, 5, 1),
-                    LocalDate.of(2026, 6, 1),
-                    LocalDate.of(2026, 7, 1),
-                    LocalDate.of(2026, 8, 1),
-                    LocalDate.of(2026, 9, 1),
-                    LocalDate.of(2026, 10, 1),
-                    LocalDate.of(2026, 11, 1),
-                    LocalDate.of(2026, 12, 1),
-                    LocalDate.of(2027, 1, 1),
-                    LocalDate.of(2027, 2, 1),
-                    LocalDate.of(2027, 3, 1),
+                    LocalDate.of(2027, 4, 1),
+                    LocalDate.of(2027, 7, 1),
+                    LocalDate.of(2027, 10, 1),
+                    LocalDate.of(2028, 1, 1),
                 ),
                 dateAdjustments = noAdjustment,
             ),
