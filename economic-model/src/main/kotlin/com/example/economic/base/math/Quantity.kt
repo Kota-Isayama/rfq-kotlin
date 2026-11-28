@@ -23,4 +23,12 @@ data class QuantitySchedule<out U: UnitType, out V: UnitType>(
             "Multiplier must be positive"
         }
     }
+
+    public fun effectiveUnit(): UnitType {
+        return if (multiplier.unit == Dimensionless) {
+            measure.unit
+        } else {
+            multiplier.unit
+        }
+    }
 }
