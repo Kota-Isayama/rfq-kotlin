@@ -1,6 +1,5 @@
 package com.example.economic.observable.price
 
-import com.example.economic.base.math.Dimensionless
 import com.example.economic.base.math.QuantitySchedule
 import com.example.economic.base.math.UnitType
 
