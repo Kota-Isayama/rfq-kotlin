@@ -76,7 +76,7 @@ class PriceQuantityTest {
                     ),
                     multiplier = Measure(
                         value = BigDecimal(1),
-                        unit = Currency.USD
+                        unit = Dimensionless
                     )
                 )
             )
