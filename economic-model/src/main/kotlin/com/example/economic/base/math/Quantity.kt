@@ -24,11 +24,11 @@ data class QuantitySchedule<out U: UnitType, out V: UnitType>(
         }
     }
 
-    public fun effectiveUnit(): UnitType {
-        return if (multiplier.unit == Dimensionless) {
+    val effectiveUnit: UnitType
+        get() = if (multiplier.unit == Dimensionless) {
             measure.unit
         } else {
             multiplier.unit
         }
-    }
+
 }

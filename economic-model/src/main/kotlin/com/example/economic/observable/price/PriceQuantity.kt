@@ -14,7 +14,7 @@ data class PriceQuantity<
     val quantity: QuantitySchedule<W, X>,
 ) {
     init {
-        require(price.perUnitOf == quantity.effectiveUnit()) {
+        require(price.perUnitOf == quantity.effectiveUnit) {
             "Price unit must match effective quantity unit"
         }
     }
