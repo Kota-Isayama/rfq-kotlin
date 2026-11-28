@@ -9,6 +9,7 @@ import com.example.economic.base.math.Dimensionless
 import com.example.economic.base.math.OrdinalBasedSchedule
 import com.example.economic.base.math.QuantitySchedule
 import com.example.economic.base.party.PayerReceiver
+import com.example.economic.observable.Observable
 import com.example.economic.product.schedule.CalculationPeriodDates
 import com.example.economic.product.schedule.PaymentDates
 import java.math.BigDecimal
@@ -60,3 +61,11 @@ data class InterestRatePayout(
         }
     }
 }
+
+
+sealed interface Underlier
+
+
+data class ObservableUnderlier(
+    val observable: Observable
+): Underlier
